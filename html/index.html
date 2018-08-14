@@ -6,35 +6,140 @@
     <!--开启对web app的支持-->
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
 
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css" crossorigin="anonymous">
-
-    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-    <link rel="stylesheet" href="../css/bootstrap-theme.min.css" crossorigin="anonymous">
+    <script src="../js/jquery-1.11.2.min.js"></script>
 
     <link rel="stylesheet" href="../css/font-awesome.min.css">
 
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css" crossorigin="anonymous">
     <script src="../js/bootstrap.min.js" crossorigin="anonymous"></script>
 
+    <!-- ztree -->
+    <link rel="stylesheet" href="../js/zTree_v3/css/zTreeStyle/zTreeStyle.css">
+    <script src="../js/zTree_v3/js/jquery.ztree.core.min.js"></script>
+
+    <!-- bootstrap-table -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <!-- 自定义 -->
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/comment.css">
+
+
+    <style>
+        .aaa{color:#0182e5;}
+        .th-inner {color:#333; font-size:14px;}
+        .trck{color:#00bda6;}
+        .fixed-table-container tbody .selected td{background:#e2f2ff}
+        .form-control:focus{
+            border:none;
+            box-shadow:none;
+        }
+        .bootstrap-table .table{
+            border-bottom:none;
+        }
+        .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+            background-color: #349bea;
+            border-color: #349bea;
+        }
+        .form-control{
+            height:auto;
+        }
+        tr>th{
+            background:#f2f2f2;
+        }
+    </style>
 
 </head>
 <body>
 
 
-<div class="header"></div>
+<div class="header cf">
+
+    <a href="#" class="headerLogo"><img src="../images/headerLogo.png" alt=""></a>
+    
+    <div class="headerUser">
+        
+        <div><img src="https://note.youdao.com/yws/api/image/normal/1441790063313?userId=sina3775538207" alt=""></div>
+        <div>
+            <span>超级管理员</span>
+            <span>XXXX部门</span>
+        </div>
+
+        <ul class="headerUserAction">
+            <li><i class="fa fa-user"></i><span>个人设置</span></li>
+            <li><i class="fa fa-question-circle"></i><span>帮助</span></li>
+            <li><i class="fa fa-power-off"></i><span>退出</span></li>
+        </ul>
+        
+    </div>
+    
+    <ul class="headerNav">
+        <li><a href="#" class="active"><i class="fa fa-home"></i><span>首页</span></a></li>
+        <li><a href="#"><i class="fa fa-file-archive-o "></i><span>专项管理</span></a></li>
+        <li><a href="#"><i class="fa fa-database"></i><span>项目管理</span></a></li>
+        <li><a href="#"><i class="fa fa-envira"></i><span>成果管理</span></a></li>
+        <li><a href="#"><i class="fa fa-television"></i><span>数据服务</span></a></li>
+        <li><a href="#"><i class="fa fa-cog"></i><span>系统设置</span></a></li>
+    </ul>
+
+
+</div>
 
 
 <div class="systemContainer">
 
     <div class="leftNav">
 
+        <!-- 左侧导航树 -->
+        <ul id="leftNav" class="ztree"></ul>
+
     </div>
 
 
     <div class="rightContainer">
 
+        <div class="rightTemplate">
 
+
+            <!-- 右侧主要内容模块写在这里 -->
+
+
+
+
+            <div id="settingsView">
+
+                <div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col col-md-3"><span>项目编号</span><input type="text" placeholder="请输入项目编号"></div>
+                            <div class="col col-md-3"><span>项目编号</span><input type="text" placeholder="请输入项目编号"></div>
+                            <div class="col col-md-3"><span>项目编号</span><input type="text" placeholder="请输入项目编号"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-3"><span>项目编号</span><input type="text" placeholder="请输入项目编号"></div>
+                            <div class="col col-md-3"><span>项目编号</span><input type="text" placeholder="请输入项目编号"></div>
+                            <div class="col col-md-3"><span>项目编号</span><input type="text" placeholder="请输入项目编号"></div>
+                            <div class="col col-md-3">
+                                <button class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
+                                <button class="btn btn-primary">重置</button>
+                                <button class="btn btn-default">高级搜索</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table id="table"></table>
+
+
+            </div>
+
+
+
+        </div>
 
 
     </div>
@@ -48,4 +153,253 @@
 
 
 </body>
+
+<script>
+
+    var zTreeObj;
+    // zTree 的参数配置
+    var setting = {
+        view: {
+            dblClickExpand: false,
+            showLine: false,
+            addDiyDom: addDiyDom
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onClick: onClick
+        }
+    };
+    // zTree 的数据属性
+    var zNodes = [
+        {
+            name:"专项管理",
+            open:true,
+            children:[
+                {name:"专项信息"},
+                {name:"专项指南"},
+                {name:"专项流程"},
+            ]
+        },
+        {
+            name:"组织机构",
+            open:false,
+            children:[
+                {name:"组织机构0"},
+                {name:"组织机构1"}
+            ]
+        },
+        {
+            name:"角色管理",
+            open:false,
+            children:[
+                {name:"角色管理0"},
+                {name:"角色管理1"}
+            ]
+        }
+    ];
+
+    function addDiyDom(treeId, treeNode) {
+
+        var aObj = $("#" + treeNode.tId + "_a");
+
+        if ($("#diyBtn_"+treeNode.id).length>0) return;
+
+        var editStr = "<i class='fa fa-envira'></i>";
+        aObj.prepend(editStr);
+
+        var btn = $("#diyBtn_"+treeNode.id);
+
+        if (btn) btn.bind("click", function(){alert("diy Button for " + treeNode.name);});
+    }
+
+    function onClick(e,treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj("leftNav");
+        zTree.expandNode(treeNode);
+    }
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#leftNav"), setting, zNodes);
+    });
+
+
+
+
+
+</script>
+<script>
+    $('#table').bootstrapTable({
+        columns:[{
+            checkbox: true,
+            visible: true                  //是否显示复选框
+        },{
+            field:'a',
+            title:'序号'
+        },{
+            field:'b',
+            title:'专项编码',
+            class:'aaa'
+        },{
+            field:'c',
+            title:'专项名称'
+        },{
+            field:'d',
+            title:'专业机构'
+        },{
+            field:'e',
+            title:'管辖年度'
+        },{
+            field:'f',
+            title:'<div class="form-group" style="margin-bottom:0px;"><select class="form-control" style="padding:0px; width:80%; border:none; box-shadow:none;"><option value="" disabled selected>授权状态</option><option>未授权</option><option>已授权</option></select></div>',
+            class:'trck'
+        },{
+            field:'g',
+            title:'授权日期'
+        },{
+            field:'h',
+            title:'授权人'
+        },{
+            field:'i',
+            title:'操作',
+            align: 'center',
+            valign: 'middle',
+            formatter: actionFormatter
+        }],
+        data:[{
+            a:'01',
+            b:'YS2018YFB01016',
+            c:'XX创新项目',
+            d:'XX有限公司',
+            e:'2017年-2018年',
+            f:'未授权',
+            g:'2018-7-23',
+            h:'系统管理员',
+            id:'1'
+        },{
+            a:'14',
+            b:'YS2018YFB01016',
+            c:'XX创新项目',
+            d:'XX有限公司',
+            e:'2017年-2018年',
+            f:'未授权',
+            g:'2018-7-23',
+            h:'系统管理员',
+            id:'2'
+        },{
+            a:'22',
+            b:'YS2018YFB01016',
+            c:'XX创新项目',
+            d:'XX有限公司',
+            e:'2017年-2018年',
+            f:'未授权',
+            g:'2018-7-23',
+            h:'系统管理员',
+            id:'3'
+        },{
+            a:'09',
+            b:'YS2018YFB01016',
+            c:'XX创新项目',
+            d:'XX有限公司',
+            e:'2017年-2018年',
+            f:'已授权',
+            g:'2018-7-23',
+            h:'系统管理员',
+            id:'4'
+        },{
+            a:'08',
+            b:'YS2018YFB01016',
+            c:'XX创新项目',
+            d:'XX有限公司',
+            e:'2017年-2018年',
+            f:'未授权',
+            g:'2018-7-23',
+            h:'系统管理员',
+            id:'5'
+        },{
+            a:'07',
+            b:'YS2018YFB01016',
+            c:'XX创新项目',
+            d:'XX有限公司',
+            e:'2017年-2018年',
+            f:'未授权',
+            g:'2018-7-23',
+            h:'系统管理员',
+            id:'6'
+        },{
+            a:'06',
+            b:'YS2018YFB01016',
+            c:'XX创新项目',
+            d:'XX有限公司',
+            e:'2017年-2018年',
+            f:'未授权',
+            g:'2018-7-23',
+            h:'系统管理员',
+            id:'7'
+        },{
+            a:'05',
+            b:'YS2018YFB01016',
+            c:'XX创新项目',
+            d:'XX有限公司',
+            e:'2017年-2018年',
+            f:'未授权',
+            g:'2018-7-23',
+            h:'系统管理员',
+            id:'8'
+        },{
+            a:'04',
+            b:'YS2018YFB01016',
+            c:'XX创新项目',
+            d:'XX有限公司',
+            e:'2017年-2018年',
+            f:'未授权',
+            g:'2018-7-23',
+            h:'系统管理员',
+            id:'9'
+        },{
+            a:'03',
+            b:'YS2018YFB01016',
+            c:'XX创新项目',
+            d:'XX有限公司',
+            e:'2017年-2018年',
+            f:'未授权',
+            g:'2018-7-23',
+            h:'系统管理员',
+            id:'10'
+        }],
+        pagination: true,                   //是否显示分页（*）
+        sortable: true,                     //是否启用排序
+        sortOrder: "123",                   //排序方式
+        //sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+        pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+        pageSize: 5,                     //每页的记录行数（*）
+        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+        search: false,                      //是否显示表格搜索
+        showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
+    });
+    //操作栏的格式化
+    function actionFormatter(value, row, index) {
+        var id = value;
+        var result = "";
+        result += "<a href='javascript:;' class='btn btn-xs green co99 ' title='删除'><i class='fa fa-trash-o fa-lg' aria-hidden='true'></i></a>";
+        result += "<a href='javascript:;' class='btn btn-xs blue co99 ' title='查看'><i class='fa fa-refresh fa-lg' aria-hidden='true'></i></a>";
+        result += "<a href='javascript:;' class='btn btn-xs red co99 ' title='删除'><i class='fa fa-times fa-lg' aria-hidden='true'></i></a>";
+
+        return result;
+    };
+    $(function(){
+        var talength = $("td.trck").length
+        for(var i=0;i<talength;i++){
+            if($("td.trck").eq(i).text()=="未授权"){
+                $("td.trck").eq(i).css({"color":"#ff6a5a"});
+            }
+        }
+    })
+
+</script>
+
+
+
 </html>

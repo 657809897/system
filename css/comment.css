@@ -1,0 +1,202 @@
+.header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 60px;
+    background: #34495e;
+    z-index: 10;
+}
+.systemContainer{
+    position: fixed;
+    left: 0;
+    top: 60px;
+    right: 0;
+    bottom: 0;
+}
+.leftNav{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 160px;
+    background: #0282e5;
+}
+.rightContainer{
+    height: 100%;
+    background: #ebebeb;
+    margin-left: 160px;
+    padding: 20px 15px;
+}
+
+.rightTemplate{
+    position: relative;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+}
+.headerLogo{
+    float: left;
+    height: 30px;
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-right: 45px;
+}
+.headerLogo img{
+    height: 100%;
+}
+.headerNav{
+    height: 100%;
+    overflow: hidden;
+    font-size: 0;
+}
+.headerNav li{
+    display: inline-block;
+    height: 100%;
+}
+.headerNav a{
+    color: #fff;
+    font-size: 15px;
+    display: block;
+    height: 100%;
+    padding: 0 15px;
+    line-height: 60px;
+    position: relative;
+}
+.headerNav a.active,.headerNav a:hover{
+    color: #0282e5;
+}
+.headerNav a.active:after,.headerNav a:hover:after{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: #0282e5;
+    content: '';
+}
+.headerNav a i{
+    margin-right: 5px;
+}
+
+.headerUser{
+    float: right;
+    margin-right: 20px;
+    height: 60px;
+    color: #fff;
+    position: relative;
+}
+.headerUser div{
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.headerUser img{
+    height: 100%;
+    border-radius: 50%;
+}
+.headerUserAction{
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background: #34495e;
+    padding: 12px 0;
+    display: none;
+}
+.headerUser:hover .headerUserAction{
+    display: block;
+}
+.headerUserAction li{
+    padding: 0 10px;
+    height: 22px;
+    line-height: 22px;
+    cursor: pointer;
+}
+.headerUserAction li:hover{
+    background: #0282e5;
+}
+.headerUserAction i{
+    margin-right: 5px;
+}
+/* ------------------------- header end -------------------------*/
+.leftNav{
+    color: #fff;
+}
+.leftNav .ztree{
+    padding: 0;
+}
+.leftNav .ztree *{
+    font-size: 14px;
+    color: #fff;
+    font-family: "微软雅黑";
+}
+.leftNav .ztree li{
+    position: relative;
+}
+.leftNav .ztree li ul{
+    padding: 0;
+}
+.leftNav .ztree li ul.line{
+    background: none;
+}
+.leftNav ul.ztree li ul,.leftNav .ztree li ul.line{
+    /*background-color: #01589d;*/
+}
+.leftNav .ztree li a{
+    line-height: 36px;
+    height: 36px;
+    display: block;
+    padding-left: 10px;
+}
+.leftNav .ztree li span.button.switch{
+    /*display: none;*/
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 36px;
+    width: auto;
+    background: none;
+}
+.leftNav .ztree li span.button.ico_docu{
+    display: none;
+}
+.leftNav .ztree li span.button{
+    display: none;
+}
+
+.leftNav .ztree li span.button.ico_open{ /* 文件夹打开状态的开关按钮 */
+
+}
+.leftNav .ztree li span.button.ico_close{ /* 文件夹关闭状态的开关按钮 */
+
+}
+.leftNav .ztree li a.curSelectedNode{
+    background: #01589d;
+    border: 0;
+    position: relative;
+    opacity: 1;
+}
+.leftNav .ztree li a.curSelectedNode:after{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 2px;
+    background: #ff6a5b;
+    content: '';
+}
+.ztree li a:hover{
+    text-decoration: none;
+}
+.leftNav .ztree .fa{
+    /*height: 36px;*/
+    /*line-height: 36px;*/
+    margin-right: 5px;
+    font: normal normal normal 14px/1 FontAwesome;
+}
+.leftNav .ztree li a.level1{
+    padding-left: 35px;
+}
