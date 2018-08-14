@@ -34,6 +34,7 @@
     background: #fff;
     width: 100%;
     height: 100%;
+    padding: 0 20px;
 }
 .headerLogo{
     float: left;
@@ -199,4 +200,32 @@
 }
 .leftNav .ztree li a.level1{
     padding-left: 35px;
+}
+/* -------------------- leftNav tree end --------------------*/
+.searchTerms{
+    font-size: 12px;
+    color: #343434;
+    padding: 20px 0;
+}
+.searchTerms .row{
+    padding: 10px 0;
+}
+.searchTerms input{
+    width: 200px;
+    height: 30px;
+    border: 1px solid #dbdbdb;
+    background: none;
+    outline: 0;
+    font-size: 12px;
+    color: #343434;
+    text-indent: 10px;
+}
+.searchTerms input:focus{
+    background: #f9f9f9;
+    border-color: #7cc7ff;
+}
+.searchTerms .searchTermsName{
+    display: inline-block;
+    width: 5em;
+    margin-right: 5px;
 }

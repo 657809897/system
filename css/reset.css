@@ -127,7 +127,8 @@ body{
 /* 重置 bootstrap 样式 */
 .btn{
     border: 0;
-    padding: 6px 15px;
+    padding: 5px 15px;
+    outline: 0;
 }
 .btn-primary{
     background: #0593ff;
@@ -142,4 +143,5 @@ body{
     background: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+    outline: 0;
 }
